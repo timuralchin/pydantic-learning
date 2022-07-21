@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveInt, EmailStr
 
 
 class Item(BaseModel):
-    id: int
-    name: str
+    id: PositiveInt
+    email: EmailStr
 
 
 app = FastAPI()
@@ -17,4 +17,4 @@ async def get_item(item: Item):
 
 @app.get('/items',  response_model=list[Item])
 async def get_item():
-    return [Item(id=id, name='test') for id in range(5)]
+    return [Item(id=id, email='test@test.com') for id in range(1, 5)]
